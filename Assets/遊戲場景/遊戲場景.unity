@@ -12434,6 +12434,7 @@ GameObject:
   - component: {fileID: 1218504430}
   - component: {fileID: 1218504431}
   - component: {fileID: 1218504432}
+  - component: {fileID: 1218504433}
   m_Layer: 0
   m_Name: "\u9A0E\u58EB"
   m_TagString: Untagged
@@ -12612,6 +12613,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1218504433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218504426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255a93d247f7e3947ba4783f44ff433b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3.5
+  jumpForce: 5
+  ani: {fileID: 0}
+  rig: {fileID: 0}
+  checkGroundSize: {x: 1, y: 1, z: 1}
+  checkGroundOffset: {x: 0, y: 0, z: 0}
+  layerCanJump:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1231121056
 GameObject:
   m_ObjectHideFlags: 0
@@ -12886,7 +12908,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354071866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.59773916, y: 0.2664069, z: -10}
+  m_LocalPosition: {x: -0.59525687, y: 0.2664069, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12996,7 +13018,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454072713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5977599, y: 0.62, z: -10}
+  m_LocalPosition: {x: -0.59526324, y: 0.62, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
