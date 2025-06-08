@@ -8,15 +8,15 @@ namespace WEIKANG
     public class Player : MonoBehaviour
     {
         #region 變數
-        [Header("基本資料")]
-        [SerializeField, Range(0, 10)]
-        private float moveSpeed = 3.5f;
-        [SerializeField, Range(0, 20)]
-        private int jumpForce = 7;
-        [SerializeField]
-        private Animator ani;
-        [SerializeField]
-        private Rigidbody2D rig;
+        [field: Header("基本資料")]
+        [field: SerializeField, Range(0, 10)]
+        public float moveSpeed { get; private set; } = 3.5f;
+        [field: SerializeField, Range(0, 20)]
+        public int jumpForce { get; private set; } = 7;
+        // [SerializeField]
+        public Animator ani { get; private set; }
+        //[SerializeField]
+        public Rigidbody2D rig { get; private set; }
         [Header("檢查地板資料")]
         [SerializeField]
         private Vector3 checkGroundSize = Vector3.one;
@@ -28,11 +28,11 @@ namespace WEIKANG
 
         #region 狀態機
         public StateMachine stateMachine;
-        public PlayerIdle playerIdle;
-        public PlayerWalk playerWalk;
-        public PlayerJump playerJump;
-        public PlayerFall playerFall;
-        public PlayerAttack playerAttack; 
+        public PlayerIdle playerIdle { get; private set; }
+        public PlayerWalk playerWalk { get; private set; }
+        public PlayerJump playerJump { get; private set; }
+        public PlayerFall playerFall { get; private set; }
+        public PlayerAttack playerAttack{ get; private set; }
         #endregion
 
         private void OnDrawGizmos()
@@ -43,14 +43,18 @@ namespace WEIKANG
 
         private void Awake()
         {
+            //取得此物件身上的 Animator 元件 並存放到 ani 變數
+            ani = GetComponent<Animator>();
+            rig = GetComponent<Rigidbody2D>();
+
             //實例化狀態機(產生一個狀態機物件在遊戲內開始執行,與掛在物件上相同)
             stateMachine = new StateMachine();
             // this 指的是指類別(在這裡指的是 Player)
-            playerIdle = new PlayerIdle(this,stateMachine,"玩家待機");
-            playerWalk = new PlayerWalk(this,stateMachine, "玩家走路");
-            playerJump = new PlayerJump(this,stateMachine, "玩家跳躍");
-            playerFall = new PlayerFall(this,stateMachine, "玩家落下");
-            playerAttack = new PlayerAttack(this,stateMachine, "玩家攻擊");
+            playerIdle = new PlayerIdle(this, stateMachine, "玩家待機");
+            playerWalk = new PlayerWalk(this, stateMachine, "玩家走路");
+            playerJump = new PlayerJump(this, stateMachine, "玩家跳躍");
+            playerFall = new PlayerFall(this, stateMachine, "玩家落下");
+            playerAttack = new PlayerAttack(this, stateMachine, "玩家攻擊");
 
             //狀態機 指定 預設狀態 為 待機
             stateMachine.DefaultState(playerIdle);
@@ -60,7 +64,35 @@ namespace WEIKANG
         {
             //狀態機 更新狀態
             stateMachine.UpdateState();
+
+            Debug.Log($"<color=#ff9>是否碰到地板:{IsGrounded()}</color>");
+        }
+
+
+
+        /// <summary>設定加速度
+        public void SetVelocity(Vector3 velocity)
+        {
+            rig.velocity = velocity;
+        }
+
+        /// <summary> 翻面
+        
+        public void Flip(float h)
+        {
+            if (Mathf.Abs(h) < 0.1f) return;
+            float angle = h > 0 ? 0 : 180;
+            transform.eulerAngles = new Vector3(angle, 0, 0);
+        }
+
+
+        ///<summary>
+        ///是否在地板上
+        ///</summary>
+        public bool IsGrounded()
+        {
+            return Physics2D.OverlapBox(transform.position + checkGroundOffset,
+                 checkGroundSize, 0, layerCanJump);
         }
     }
 }
-

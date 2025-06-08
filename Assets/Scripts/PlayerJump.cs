@@ -1,4 +1,6 @@
-﻿namespace WEIKANG
+﻿using UnityEngine;
+
+namespace WEIKANG
 {
     ///<summary>
     ///玩家跳躍
@@ -7,6 +9,31 @@
     {
         public PlayerJump(Player _player, StateMachine _stateMachine, string _name) : base(_player, _stateMachine, _name)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            player.SetVelocity(new Vector3(player.rig.velocity.x, player.jumpForce));
+            player.ani.SetBool("是否在地板上", false);
+            player.ani.SetFloat("重力",1);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            player.SetVelocity(new Vector2(h * player.moveSpeed, player.rig.velocity.y));
+            player.ani.SetFloat("移動", Mathf.Abs(h));
+            player.Flip(h);
+
+            //如果 剛體加速度的Y 小於 0 就 切換到落下狀態
+            if (player.rig.velocity.y > 0) stateMachine.SwitchState(player.playerFall);
         }
     }
 }
