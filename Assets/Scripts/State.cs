@@ -7,9 +7,10 @@ namespace WEIKANG
     /// </summary>
     public class State
     {
-        private string name;
+        protected string name;
         
         protected Player player;
+
         protected StateMachine stateMachine;
         protected float h;
 
@@ -21,16 +22,20 @@ namespace WEIKANG
             name = _name;
         }
 
+        protected float timer;
+
         // virtual 虛擬:允許子類別覆寫(override)
         public virtual void Enter()
         {
             Debug.Log($"<color=#f69>進入<{name}> 狀態</color>");
+            timer = 0;
         }
 
         public virtual void Update()
         {
             Debug.Log($"<color=#999>更新<{name}> 狀態</color>");
-            h = Input.GetAxis("Horozontal");
+            h = Input.GetAxis("Horizontal");
+            timer += Time.deltaTime;
         }
 
         public virtual void Exit()

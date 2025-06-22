@@ -13,10 +13,18 @@ namespace WEIKANG
         public float moveSpeed { get; private set; } = 3.5f;
         [field: SerializeField, Range(0, 20)]
         public int jumpForce { get; private set; } = 7;
+        [field: SerializeField, Range(0, 3)]
+        public float attackBreakTime { get; private set; } = 1;
+        [field: SerializeField, Range(0, 1)]
+        public float[] attackAnimationTime { get; private set; }
         // [SerializeField]
         public Animator ani { get; private set; }
         //[SerializeField]
         public Rigidbody2D rig { get; private set; }
+
+        public bool canMove { get; set; } = true;
+        public bool canJump { get; set; } = true;
+        public bool canAttack { get; set; } = true;
         [Header("檢查地板資料")]
         [SerializeField]
         private Vector3 checkGroundSize = Vector3.one;
@@ -77,14 +85,23 @@ namespace WEIKANG
         }
 
         /// <summary> 翻面
-        
+
+        private bool facingRight = true;
+
         public void Flip(float h)
         {
             if (Mathf.Abs(h) < 0.1f) return;
-            float angle = h > 0 ? 0 : 180;
-            transform.eulerAngles = new Vector3(angle, 0, 0);
-        }
 
+            bool shouldFaceRight = h > 0;
+
+            if (shouldFaceRight != facingRight)
+            {
+                facingRight = shouldFaceRight;
+                Vector3 scale = transform.localScale;
+                scale.x *= -1;
+                transform.localScale = scale;
+            }
+        }
 
         ///<summary>
         ///是否在地板上
