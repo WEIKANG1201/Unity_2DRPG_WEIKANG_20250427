@@ -5,7 +5,7 @@ namespace WEIKANG
     ///<summary>
     ///玩家攻擊
     ///</summary>
-    public class PlayerAttack : State
+    public class PlayerAttack : PlayerState
     {
         
 

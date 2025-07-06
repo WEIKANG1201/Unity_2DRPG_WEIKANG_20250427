@@ -22,9 +22,9 @@ namespace WEIKANG
         //[SerializeField]
         public Rigidbody2D rig { get; private set; }
 
-        public bool canMove { get; set; } = true;
-        public bool canJump { get; set; } = true;
-        public bool canAttack { get; set; } = true;
+        public bool canMove { get; set; } = false;
+        public bool canJump { get; set; } = false;
+        public bool canAttack { get; set; } = false;
         [Header("檢查地板資料")]
         [SerializeField]
         private Vector3 checkGroundSize = Vector3.one;
@@ -66,6 +66,9 @@ namespace WEIKANG
 
             //狀態機 指定 預設狀態 為 待機
             stateMachine.DefaultState(playerIdle);
+
+            //測試用:可以控制
+            //TestCanControl();
         }
 
         private void Update()
@@ -111,5 +114,12 @@ namespace WEIKANG
             return Physics2D.OverlapBox(transform.position + checkGroundOffset,
                  checkGroundSize, 0, layerCanJump);
         }
+
+        //private void TestCanControl()
+        
+            //canMove = true;
+            //canJump = true;
+            //canAttack = true;
+        
     }
 }

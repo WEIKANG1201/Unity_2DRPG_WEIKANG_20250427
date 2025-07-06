@@ -15,14 +15,13 @@ namespace WEIKANG
         protected float h;
 
         //建構子:實例化時會被呼叫,名稱與類別相同
+        protected float timer;
         public State(Player _player, StateMachine _stateMachine, string _name)
         {
             player = _player;
             stateMachine = _stateMachine;
             name = _name;
         }
-
-        protected float timer;
 
         // virtual 虛擬:允許子類別覆寫(override)
         public virtual void Enter()
