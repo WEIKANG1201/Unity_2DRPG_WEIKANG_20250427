@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,5 +15,10 @@ public class Flowchart : MonoBehaviour
     void Update()
     {
         
+    }
+
+    internal void SendFungusMessage(string v)
+    {
+        throw new NotImplementedException();
     }
 }

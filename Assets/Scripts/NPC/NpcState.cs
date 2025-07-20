@@ -8,13 +8,12 @@ namespace WEIKANG
         protected StateMachine stateMachine;
         protected string name;
 
-        public NpcState(Player player, StateMachine stateMachine, string name, NPC _npc, StateMachine _stateMachine)
-          : base(player, stateMachine, name)
+        public NpcState(NPC _npc, StateMachine _stateMachine, string _name)
+          : base(_npc, _stateMachine, _name)
         {
-            player = player;
             npc = _npc;
-            stateMachine = stateMachine;
-            name = name;
+            stateMachine = _stateMachine;
+            name = _name;
         }
         public virtual void Enter() { }
         public virtual void Exit() { }

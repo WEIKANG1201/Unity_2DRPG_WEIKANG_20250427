@@ -23,6 +23,12 @@ namespace WEIKANG
             name = _name;
         }
 
+        public State(NPC npc, StateMachine stateMachine, string name)
+        {
+            this.stateMachine = stateMachine;
+            this.name = name;
+        }
+
         // virtual 虛擬:允許子類別覆寫(override)
         public virtual void Enter()
         {

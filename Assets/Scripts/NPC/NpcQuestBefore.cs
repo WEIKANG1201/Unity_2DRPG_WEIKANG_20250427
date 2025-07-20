@@ -4,13 +4,9 @@ namespace WEIKANG
 {
     public class NpcQuestBefore : NpcState
     {
-        public NpcQuestBefore(Player player, StateMachine stateMachine, string name, NPC _npc, StateMachine npcStateMachine)
-      : base(player, stateMachine, name, _npc, npcStateMachine)
-
+        public NpcQuestBefore(NPC _npc, StateMachine _stateMachine, string _name) : base(_npc, _stateMachine, _name)
         {
-            // 你可以在這裡加入初始化邏輯
         }
-
         public override void Enter()
         {
             base.Enter();
@@ -24,6 +20,11 @@ namespace WEIKANG
         public override void Update()
         {
             base.Update();
+
+            if (npc.playerInArea && Input.GetKeyDown(KeyCode.E)) 
+            {
+                npc.flowchart.SendFungusMessage("任務前");
+            }
         }
     }
 }

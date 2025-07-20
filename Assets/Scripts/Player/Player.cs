@@ -115,11 +115,21 @@ namespace WEIKANG
                  checkGroundSize, 0, layerCanJump);
         }
 
-        //private void TestCanControl()
-        
+        private void TestCanControl()
+        {
             //canMove = true;
             //canJump = true;
             //canAttack = true;
-        
+        }
+
+        public void SwitchControl(bool canControl)
+        {
+            rig.velocity = Vector3.zero;
+            stateMachine.SwitchState(playerIdle);
+            canMove = canControl;
+            canJump = canControl;
+            canAttack = canControl;
+
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿using UnityEngine;
+
+namespace WEIKANG
+{
+    public class NPC : MonoBehaviour
+    {
+        public StateMachine stateMachine;
+        public NpcQuestBefore questBefore { get; private set; }
+        public NpcQuesting questing { get; private set; }
+        public NpcQusetFinish qusetFinish { get; private set; }
+
+        private void Awake()
+        {
+            stateMachine = new StateMachine();
+            questBefore = new NpcQuestBefore(this, stateMachine, "NPC 老人任務進行前");
+            questing = new NpcQuesting(this, stateMachine, "NPC 老人任務進行中");
+            qusetFinish = new NpcQusetFinish(this, stateMachine, "NPC 老人任務進行完成");
+            stateMachine.DefaultState(questBefore);
+        }
+        private void Update()
+        {
+            stateMachine.UpdateState();
+        }
+    }
+}
