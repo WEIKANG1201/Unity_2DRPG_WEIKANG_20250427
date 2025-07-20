@@ -21,6 +21,10 @@ namespace WEIKANG
         public override void Update()
         {
             base.Update();
+            if (npc.playerInArea && Input.GetKeyDown(KeyCode.E))
+            {
+                npc.flowchart.SendFungusMessage("¥ô°È«á");
+            }
         }
     }
 }

@@ -25,6 +25,9 @@ namespace WEIKANG
             {
                 npc.flowchart.SendFungusMessage("任務前");
             }
+
+            //如果 有在任務前對話過 就 切換到任務進行中
+            if (npc.isTalkingBefore) stateMachine.SwitchState(npc.questBefore);
         }
     }
 }
