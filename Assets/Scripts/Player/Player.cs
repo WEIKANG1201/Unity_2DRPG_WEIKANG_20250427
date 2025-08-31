@@ -34,6 +34,9 @@ namespace WEIKANG
         private LayerMask layerCanJump;
         #endregion
 
+        // 唯讀屬性簡寫
+        public float hpMaxData => hpMax;
+        public float hpData => hp;
         #region 狀態機
         public StateMachine stateMachine;
         public PlayerIdle playerIdle { get; private set; }
@@ -90,6 +93,8 @@ namespace WEIKANG
         /// <summary> 翻面
 
         private bool facingRight = true;
+        private readonly float hpMax;
+        private readonly float hp;
 
         public void Flip(float h)
         {
