@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace WEIKANG
 {
@@ -93,8 +94,12 @@ namespace WEIKANG
         /// <summary> 翻面
 
         private bool facingRight = true;
-        private readonly float hpMax;
-        private readonly float hp;
+        // 將 hpMax 與 hp 從 readonly 改為 private 欄位，並移到區域變數區
+        private float hpMax;
+        private float hp;
+        private object imgHp;
+        private object imgHpMax;
+        private CanvasGroup groupBlack;
 
         public void Flip(float h)
         {
@@ -134,7 +139,37 @@ namespace WEIKANG
             canMove = canControl;
             canJump = canControl;
             canAttack = canControl;
+        }
+        ///<summary>
+        ///載入血量資料並更新介面
+        /// </summary>
+        /// <param name="_hpMax">血量最大值</param>
+        /// <param name="_hp">血量當前值</param>
+        public void LoadHpUpdateUI(float _hpMax, float _hp)
+        {
+            hp = _hp;
+            hpMax = _hpMax;
+       
+        }
+        ///<summary>
+        ///載入玩家資料
+        /// </summary>
+        private IEnumerator LoadPlayerData()
+        {
+            yield return new WaitForSeconds(2);
+            SaveLoadSystem.instance.LoadData();
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(FadeSystem.Fade(groupBlack, false));
+            Revival();
+        }
 
+        /// <summary> 
+        /// 復活 
+        /// </summary>
+        private void Revival()
+        {
+            ani.SetTrigger("觸發復活");
+            stateMachine.SwitchState(playerIdle);
         }
     }
 }

@@ -23,6 +23,7 @@ namespace WEIKANG {
         [SerializeField]
         private PlayerData playerData;
 
+        private const string dataName = "遊戲儲存資料";
         private Transform playerTransform;
         private Player player;
      
@@ -42,6 +43,12 @@ namespace WEIKANG {
         ///<summary>
         ///存檔
         /// </summary>
+        /// 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha8)) SaveData();
+            if (Input.GetKeyDown(KeyCode.Alpha9)) LoadData();
+        }
         public void SaveData()
         {
             playerData.position = playerTransform.position;
@@ -49,7 +56,26 @@ namespace WEIKANG {
             playerData.hpMax = player.hpMaxData;
             playerData.hp = player.hpMaxData;
             playerData.hp = player.hpData;
-      
+
+            //存檔格式 JSON 輕而且快速的文字格式
+            var json = JsonUtility.ToJson(playerData);
+            Debug.Log(json);
+
+            // 將轉為JSON格式的字串 儲存到本機端 名稱為"遊戲儲存資料"
+            PlayerPrefs.SetString(dataName, json);
+        }
+
+        public void LoadData()
+        {
+            //讀取本機端的檔案
+            var json = PlayerPrefs.GetString(dataName);
+           
+            //將讀取到的字串 轉為 PlayerData 類別
+            playerData = JsonUtility.FromJson<PlayerData>(json);
+            //將讀取到的資料 指定給 玩家
+            playerTransform.position = playerData.position;
+            playerTransform.eulerAngles = playerData.rotation;
+            player.LoadHpUpdateUI(playerData.hpMax, playerData.hp);
         }
     }
 }

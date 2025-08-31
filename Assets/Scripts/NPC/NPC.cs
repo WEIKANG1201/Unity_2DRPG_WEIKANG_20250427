@@ -21,7 +21,7 @@ namespace WEIKANG
 
         public bool isTalkingBefore { get; set; }
 
-        public int itemCountCurrent { get; private set; }
+        public int itemCountCurrent { get; protected set; }
         public int itemCountNeed { get; private set; } = 10;
 
         private void Awake()
