@@ -8,9 +8,7 @@ namespace WEIKANG
     public class State
     {
         protected string name;
-        
         protected Player player;
-
         protected StateMachine stateMachine;
         protected float h;
 
@@ -23,6 +21,13 @@ namespace WEIKANG
             name = _name;
         }
 
+        public State(Enemy enemy, StateMachine stateMachine, string name)
+        {
+            this.stateMachine = stateMachine;
+            this.name = name;
+        }
+
+
         public State(NPC npc, StateMachine stateMachine, string name)
         {
             this.stateMachine = stateMachine;
@@ -32,7 +37,7 @@ namespace WEIKANG
         // virtual 虛擬:允許子類別覆寫(override)
         public virtual void Enter()
         {
-            Debug.Log($"<color=#f69>進入<{name}> 狀態</color>");
+            // Debug.Log($"<color=#f69>進入<{name}> 狀態</color>");
             timer = 0;
         }
 

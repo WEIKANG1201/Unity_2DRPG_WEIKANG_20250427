@@ -6,7 +6,7 @@ namespace WEIKANG
     /// <summary>
     /// 玩家:儲存玩家資料與基本功能
     /// </summary>
-    public class Player : MonoBehaviour
+    public class Player : Character
     {
         #region 變數
         [field: Header("基本資料")]
@@ -19,9 +19,7 @@ namespace WEIKANG
         [field: SerializeField, Range(0, 1)]
         public float[] attackAnimationTime { get; private set; }
         // [SerializeField]
-        public Animator ani { get; private set; }
-        //[SerializeField]
-        public Rigidbody2D rig { get; private set; }
+ 
 
         public bool canMove { get; set; } = false;
         public bool canJump { get; set; } = false;
@@ -53,11 +51,10 @@ namespace WEIKANG
             Gizmos.DrawCube(transform.position + checkGroundOffset, checkGroundSize);
         }
 
-        private void Awake()
+        protected override void Awake()
         {
-            //取得此物件身上的 Animator 元件 並存放到 ani 變數
-            ani = GetComponent<Animator>();
-            rig = GetComponent<Rigidbody2D>();
+            base.Awake();
+
 
             //實例化狀態機(產生一個狀態機物件在遊戲內開始執行,與掛在物件上相同)
             stateMachine = new StateMachine();
@@ -85,14 +82,7 @@ namespace WEIKANG
 
 
 
-        /// <summary>設定加速度
-        public void SetVelocity(Vector3 velocity)
-        {
-            rig.velocity = velocity;
-        }
-
-        /// <summary> 翻面
-
+       
         private bool facingRight = true;
         // 將 hpMax 與 hp 從 readonly 改為 private 欄位，並移到區域變數區
         private float hpMax;
